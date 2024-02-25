@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IRootState } from "@store/model";
-import { Point } from "@model";
+import { IRootState } from "./model";
+import { Point } from "../model";
 
 export interface IRequest {
   point: Point;

@@ -1,8 +1,8 @@
-import { UltimateContexter } from "@hooks/context";
-import { useSelector } from "@hooks/redux";
-import { AlgorithmType } from "@model/algorithm";
-import { Point } from "@model/point";
-import { selectSelectedAlgorithm } from "@store/selectedAlgorithmSlice";
+import { UltimateContexter } from "../../hooks/context";
+import { useSelector } from "../../hooks/redux";
+import { AlgorithmType } from "../../model/algorithm";
+import { Point } from "../../model/point";
+import { selectSelectedAlgorithm } from "../../store/selectedAlgorithmSlice";
 import { useState } from "react";
 import { DDA } from "../../helpers/lineAlgorithms/DDA";
 
@@ -15,7 +15,7 @@ export const useLine = (ctx: UltimateContexter): useLineReturn => {
 
   const algorithm = useSelector(selectSelectedAlgorithm);
 
-  const draw = (point: Point) => {
+  const drawLine = (point: Point) => {
     if (lastPoint) {
       if (lastPoint.X != point.X && lastPoint.Y != point.Y) {
         let points = [] as Point[];

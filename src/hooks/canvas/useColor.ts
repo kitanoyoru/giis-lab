@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { UltimateContexter } from "@hooks/context";
+import { UltimateContexter } from "../../hooks/context";
 
 type HEXColor = `#${string}`;
 type TailwindColorStyle = `bg-[${HEXColor}]`;

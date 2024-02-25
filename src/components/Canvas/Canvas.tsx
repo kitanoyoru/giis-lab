@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 
-import { useDrawler } from "@hooks/canvas/useDrawler";
-import { useLine } from "@hooks/canvas/useLine";
-import { useSelector } from "@hooks/redux";
-import { ToolType } from "@model/tool";
-import { selectSelectedTool } from "@store/selectedToolSlice";
+import { useDrawler } from "../../hooks/canvas/useDrawler";
+import { useLine } from "../../hooks/canvas/useLine";
+import { useSelector } from "../../hooks/redux";
+import { ToolType } from "../../model/tool";
+import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
 
 interface IProps {
   width: number;
   height: number;
-  pixelSize: number;
-  showGrid: boolean;
 }
 
 export const Canvas: FC<IProps> = ({ width, height }) => {
   const [mouseDown, setMouseDown] = useState<boolean>(false);
 
+  const selectedTool = useSelector(selectSelectedTool);
+
   const { canvasRef, draw } = useDrawler();
   const { drawLine } = useLine(draw!);
-
-  const selectedTool = useSelector(selectSelectedTool);
 
   return (
     <div>

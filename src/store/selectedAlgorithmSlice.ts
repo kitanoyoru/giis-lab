@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IRootState } from "@store/model";
-import { AlgorithmType } from "@model";
+import { IRootState } from "./model";
+import { AlgorithmType } from "../model";
 
 export interface IRequest {
   algorithm: AlgorithmType;

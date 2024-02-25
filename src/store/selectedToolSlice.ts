@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IRootState } from "@store/model";
-import { ToolType } from "@model";
+import { IRootState } from "./model";
+import { ToolType } from "../model";
 
 export interface IRequest {
   tool: ToolType;

@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "@hooks/redux";
-import { ToolType } from "@model/tool";
-import { AlgorithmType } from "@model/algorithm";
-import { setSelectedAlgorithm } from "@store/selectedAlgorithmSlice";
-import { selectSelectedTool } from "@store/selectedToolSlice";
+import { useDispatch, useSelector } from "../../hooks/redux";
+import { ToolType } from "../../model/tool";
+import { AlgorithmType } from "../../model/algorithm";
+import { setSelectedAlgorithm } from "../../store/selectedAlgorithmSlice";
+import { selectSelectedTool } from "../../store/selectedToolSlice";
 
-import DDAIcon from "@public/DDAIcon.svg";
-import BresenhamIcon from "@public/BresenhamIcon.svg";
-import WuIcon from "@public/WuIcon.svg";
+import DDAIcon from "../../public/DDAIcon.svg";
+import BresenhamIcon from "../../public/BresenhamIcon.svg";
+import WuIcon from "../../public/WuIcon.svg";
 
-export const ToolPanel = () => {
+export const AlgorithmSelector = () => {
   const dispatch = useDispatch();
 
   const onClick = (newAlgorithm: AlgorithmType) => {

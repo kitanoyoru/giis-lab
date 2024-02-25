@@ -1,10 +1,10 @@
-import { useDispatch } from "@hooks/redux";
-import { ToolType } from "@model/tool";
-import { setSelectedTool } from "@store/selectedToolSlice";
+import { useDispatch } from "../../hooks/redux";
+import { ToolType } from "../../model/tool";
+import { setSelectedTool } from "../../store/selectedToolSlice";
 
-import LineIcon from "@public/LineIcon.svg";
-import CircleIcon from "@public/CircleIcon.svg";
-import EllipseIcon from "@public/EllipseIcon.svg";
+import LineIcon from "../../public/LineIcon.svg";
+import CircleIcon from "../../public/CircleIcon.svg";
+import EllipseIcon from "../../public/EllipseIcon.svg";
 
 export const ToolPanel = () => {
   const dispatch = useDispatch();

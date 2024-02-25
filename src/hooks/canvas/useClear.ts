@@ -1,4 +1,4 @@
-import { Printer } from "@hooks/context";
+import { Printer } from "../../hooks/context";
 
 export const useClear = () => {
   const clear: Printer = ({ context, canvas }) => {

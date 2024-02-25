@@ -1,4 +1,4 @@
-import { Point } from "@model";
+import { Point } from "../../model";
 
 export const DDA = (p1: Point, p2: Point): Point[] => {
   const { X: x1, Y: y1 } = p1;
