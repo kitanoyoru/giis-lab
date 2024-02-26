@@ -12,7 +12,7 @@ export const useDrawler = () => {
         canvas: canvasRef.current,
         context: canvasRef.current.getContext("2d")!,
       });
-      setContexter(contexter);
+      setContexter((_) => contexter);
     }
   }, [canvasRef]);
 

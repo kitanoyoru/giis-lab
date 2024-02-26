@@ -17,26 +17,35 @@ interface UseColorReturn {
     selectThisColor: () => void;
     isSelected: boolean;
   }>;
-  reducers: { addNewColor: (color: HEXColor) => number };
+  reducers: {
+    addNewColor: (newColor: HEXColor) => number;
+    changeColor: (newColor: HEXColor) => void;
+  };
 }
 
 // TODO: i think better to store palette in rtk store
-export const useColor = (contexter: UltimateContexter): UseColorReturn => {
+export const useColor = (
+  ctx: UltimateContexter | undefined,
+): UseColorReturn => {
   const [selectedColor, setSelectedColor] = useState<HEXColor>();
 
   const changeColor = useCallback(
     (newColor: HEXColor) => {
-      setSelectedColor(newColor);
-      contexter(({ context }) => {
-        context.fillStyle = newColor;
-      });
+      if (ctx) {
+        setSelectedColor(newColor);
+        ctx(({ context }) => {
+          context.fillStyle = newColor;
+        });
+      }
     },
-    [contexter],
+    [ctx],
   );
 
   useEffect(() => {
-    changeColor(colorPalette[0].color);
-  }, [contexter, changeColor]);
+    if (ctx) {
+      changeColor(colorPalette[0].color);
+    }
+  }, [ctx, changeColor]);
 
   return {
     pallete: colorPalette.map((c) => ({
@@ -45,8 +54,9 @@ export const useColor = (contexter: UltimateContexter): UseColorReturn => {
       isSelected: selectedColor === c.color,
     })),
     reducers: {
-      addNewColor: (color: HEXColor) =>
-        colorPalette.push({ color, style: `bg-[#${color}]` }),
+      addNewColor: (newColor: HEXColor) =>
+        colorPalette.push({ color: newColor, style: `bg-[#${newColor}]` }),
+      changeColor,
     },
   };
 };

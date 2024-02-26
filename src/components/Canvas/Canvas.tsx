@@ -6,6 +6,7 @@ import { useSelector } from "../../hooks/redux";
 import { ToolType } from "../../model/tool";
 import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
+import { useColor } from "../../hooks/canvas/useColor";
 
 interface IProps {
   width: number;
@@ -19,17 +20,22 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
 
   const { canvasRef, draw } = useDrawler();
   const { drawLine } = useLine(draw!);
+  const _ = useColor(draw!);
 
   return (
     <div>
       <canvas
+        className={`mx-auto bg-white shadow shadow-indigo-100`}
+        style={{ imageRendering: "pixelated" }}
         onClick={(evt: React.MouseEvent<HTMLCanvasElement>) => {
           const rect = canvasRef.current!.getBoundingClientRect();
 
           const x = evt.clientX - rect.left;
-          const y = evt.clientX - rect.right;
+          const y = evt.clientY - rect.top;
 
-          draw!(({ context }) => context.drawPixel(x, y));
+          draw!(({ context }) => {
+            context.drawPixel(x, y);
+          });
           if (selectedTool == ToolType.LINE) {
             drawLine({ X: x, Y: y });
           }
@@ -41,7 +47,7 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
             const rect = canvasRef.current!.getBoundingClientRect();
 
             const x = evt.clientX - rect.left;
-            const y = evt.clientX - rect.right;
+            const y = evt.clientY - rect.top;
 
             draw!(({ context }) => context.drawPixel(x, y));
           }
