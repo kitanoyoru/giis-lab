@@ -5,6 +5,8 @@ import { Point } from "../../model/point";
 import { selectSelectedAlgorithm } from "../../store/selectedAlgorithmSlice";
 import { useState } from "react";
 import { DDA } from "../../helpers/lineAlgorithms/DDA";
+import { Bresenham } from "../../helpers/lineAlgorithms/Bresenham";
+import { Wu } from "../../helpers/lineAlgorithms/Wu";
 
 interface useLineReturn {
   drawLine: (point: Point) => void;
@@ -14,6 +16,7 @@ export const useLine = (ctx: UltimateContexter | undefined): useLineReturn => {
   const [lastPoint, setLastPoint] = useState<Point>();
 
   const algorithm = useSelector(selectSelectedAlgorithm);
+  console.log(algorithm);
 
   const drawLine = (point: Point) => {
     if (ctx) {
@@ -23,10 +26,29 @@ export const useLine = (ctx: UltimateContexter | undefined): useLineReturn => {
           switch (algorithm) {
             case AlgorithmType.DDA: {
               points = DDA(lastPoint, point);
+              break;
+            }
+            case AlgorithmType.BRESENHAM: {
+              points = Bresenham(lastPoint, point);
+              break;
+            }
+            case AlgorithmType.WU: {
+              let style = "";
+              ctx(({ context }) => (style = context.fillStyle as string));
+
+              points = Wu(lastPoint, point, style);
+              break;
             }
           }
           for (const p of points) {
-            ctx(({ context }) => context.drawPixel(p.X, p.Y));
+            ctx(({ context }) => {
+              const prevStyle = context.fillStyle;
+              if (p.fillStyle) {
+                context.fillStyle = p.fillStyle;
+              }
+              context.drawPixel(p.X, p.Y);
+              context.fillStyle = prevStyle;
+            });
           }
         }
       }

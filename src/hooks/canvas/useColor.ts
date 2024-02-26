@@ -5,10 +5,14 @@ type HEXColor = `#${string}`;
 type TailwindColorStyle = `bg-[${HEXColor}]`;
 
 const colorPalette: { color: HEXColor; style: TailwindColorStyle }[] = [
-  { color: "#756AB6", style: "bg-[#756AB6]" },
-  { color: "#AC87C5", style: "bg-[#AC87C5]" },
-  { color: "#E0AED0", style: "bg-[#E0AED0]" },
-  { color: "#FFE5E5", style: "bg-[#FFE5E5]" },
+  { color: "#FF0000", style: "bg-[#FF0000]" },
+  { color: "#00FF00", style: "bg-[#00FF00]" },
+  { color: "#0000FF", style: "bg-[#0000FF]" },
+  { color: "#000000", style: "bg-[#000000]" },
+  { color: "#63B3ED", style: "bg-[#63B3ED]" },
+  { color: "#48BB78", style: "bg-[#48BB78]" },
+  { color: "#F6E05E", style: "bg-[#F6E05E]" },
+  { color: "#FCA5A5", style: "bg-[#FCA5A5]" },
 ];
 
 interface UseColorReturn {

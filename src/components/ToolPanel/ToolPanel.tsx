@@ -1,12 +1,23 @@
+import { FC } from "react";
 import { useDispatch } from "../../hooks/redux";
 import { ToolType } from "../../model/tool";
 import { setSelectedTool } from "../../store/selectedToolSlice";
 
+/*
 import LineIcon from "../../public/LineIcon.svg";
 import CircleIcon from "../../public/CircleIcon.svg";
 import EllipseIcon from "../../public/EllipseIcon.svg";
+*/
 
-export const ToolPanel = () => {
+interface IProps {
+  containerClassName: string;
+  buttonClassName: string;
+}
+
+export const ToolPanel: FC<IProps> = ({
+  containerClassName,
+  buttonClassName,
+}) => {
   const dispatch = useDispatch();
 
   const onClick = (newTool: ToolType) => {
@@ -14,16 +25,16 @@ export const ToolPanel = () => {
   };
 
   return (
-    <div>
-      <button onClick={() => onClick(ToolType.LINE)}>
-        <LineIcon />
-      </button>
-      <button onClick={() => onClick(ToolType.CIRCLE)}>
-        <CircleIcon />
-      </button>
-      <button onClick={() => onClick(ToolType.ELLIPSE)}>
-        <EllipseIcon />
-      </button>
-    </div>
+    <ul className={containerClassName}>
+      <li className={buttonClassName} onClick={() => onClick(ToolType.LINE)}>
+        Line
+      </li>
+      <li className={buttonClassName} onClick={() => onClick(ToolType.CIRCLE)}>
+        Circle
+      </li>
+      <li className={buttonClassName} onClick={() => onClick(ToolType.ELLIPSE)}>
+        Ellipse
+      </li>
+    </ul>
   );
 };

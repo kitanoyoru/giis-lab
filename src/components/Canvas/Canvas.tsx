@@ -6,7 +6,7 @@ import { useSelector } from "../../hooks/redux";
 import { ToolType } from "../../model/tool";
 import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
-import { useColor } from "../../hooks/canvas/useColor";
+import { ColorPicker } from "../../components/ColorPicker";
 
 interface IProps {
   width: number;
@@ -20,7 +20,6 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
 
   const { canvasRef, draw } = useDrawler();
   const { drawLine } = useLine(draw!);
-  const _ = useColor(draw!);
 
   return (
     <div>
@@ -36,8 +35,11 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
           draw!(({ context }) => {
             context.drawPixel(x, y);
           });
-          if (selectedTool == ToolType.LINE) {
-            drawLine({ X: x, Y: y });
+          switch (selectedTool) {
+            case ToolType.LINE: {
+              drawLine({ X: x, Y: y });
+              break;
+            }
           }
         }}
         onMouseDown={() => setMouseDown(true)}
@@ -56,6 +58,7 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
         width={width}
         height={height}
       />
+      <ColorPicker draw={draw!} />
     </div>
   );
 };
