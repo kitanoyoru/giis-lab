@@ -3,12 +3,6 @@ import { AlgorithmType } from "../../model/algorithm";
 import { setSelectedAlgorithm } from "../../store/selectedAlgorithmSlice";
 import { FC } from "react";
 
-/*
-import DDAIcon from "../../public/DDAIcon.svg";
-import BresenhamIcon from "../../public/BresenhamIcon.svg";
-import WuIcon from "../../public/WuIcon.svg";
-*/
-
 interface IProps {
   containerClassName: string;
   buttonClassName: string;

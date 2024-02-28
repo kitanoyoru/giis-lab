@@ -3,12 +3,6 @@ import { useDispatch } from "../../hooks/redux";
 import { ToolType } from "../../model/tool";
 import { setSelectedTool } from "../../store/selectedToolSlice";
 
-/*
-import LineIcon from "../../public/LineIcon.svg";
-import CircleIcon from "../../public/CircleIcon.svg";
-import EllipseIcon from "../../public/EllipseIcon.svg";
-*/
-
 interface IProps {
   containerClassName: string;
   buttonClassName: string;

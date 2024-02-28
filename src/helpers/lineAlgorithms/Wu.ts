@@ -93,12 +93,11 @@ function fractionalPart(x: number): number {
   return x - tmp;
 }
 
-function hex2rgba(hexa, interx) {
+function hex2rgba(hexa: string, interx: number) {
   console.log(hexa);
-  var r = parseInt(hexa.slice(1, 3), 16);
+  const r = parseInt(hexa.slice(1, 3), 16);
   const g = parseInt(hexa.slice(3, 5), 16);
   const b = parseInt(hexa.slice(5, 7), 16);
-  const a = parseInt(hexa.slice(7, 9), 16) / 255;
   const res =
     "rgba(" + r + ", " + g + ", " + b + ", " + Math.round(interx) / 256 + ")";
   console.log(res);
