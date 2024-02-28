@@ -19,5 +19,5 @@ export const ContexterProducer: UltimateContexterProducer =
 CanvasRenderingContext2D.prototype.drawPixel = function (x: number, y: number) {
   const { x: _x, y: _y, width, height } = pixelize({ x, y, pixelsize: 10 });
   this.fillRect(_x, _y, width, height);
-  console.log(`PIXEL ON [${x}:${y}]  [${_x}:${_y}]`);
+  console.log(`Point [${x}:${y}]`);
 };

@@ -7,18 +7,21 @@ import { useState } from "react";
 import { DDA } from "../../helpers/lineAlgorithms/DDA";
 import { Bresenham } from "../../helpers/lineAlgorithms/Bresenham";
 import { Wu } from "../../helpers/lineAlgorithms/Wu";
+import { selectDebugMode } from "../../store/debugModeSlice";
+import { sleep } from "../../utils/sleep";
 
 interface useLineReturn {
   drawLine: (point: Point) => void;
+  clearLineState: () => void;
 }
 
 export const useLine = (ctx: UltimateContexter | undefined): useLineReturn => {
   const [lastPoint, setLastPoint] = useState<Point>();
 
   const algorithm = useSelector(selectSelectedAlgorithm);
-  console.log(algorithm);
+  const debugMode = useSelector(selectDebugMode);
 
-  const drawLine = (point: Point) => {
+  const drawLine = async (point: Point) => {
     if (ctx) {
       if (lastPoint) {
         if (lastPoint.X != point.X && lastPoint.Y != point.Y) {
@@ -49,6 +52,9 @@ export const useLine = (ctx: UltimateContexter | undefined): useLineReturn => {
               context.drawPixel(p.X, p.Y);
               context.fillStyle = prevStyle;
             });
+            if (debugMode) {
+              await sleep(100);
+            }
           }
         }
       }
@@ -56,7 +62,12 @@ export const useLine = (ctx: UltimateContexter | undefined): useLineReturn => {
     setLastPoint(point);
   };
 
+  const clearLineState = () => {
+    setLastPoint(undefined);
+  };
+
   return {
     drawLine,
+    clearLineState,
   };
 };

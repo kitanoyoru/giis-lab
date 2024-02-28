@@ -1,6 +1,10 @@
 import { Printer } from "../../hooks/context";
 
-export const useClear = () => {
+interface useClearReturn {
+  clear: Printer;
+}
+
+export const useClear = (): useClearReturn => {
   const clear: Printer = ({ context, canvas }) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
   };

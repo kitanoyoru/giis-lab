@@ -12,7 +12,7 @@ export const Ellipse = (p1: Point, p2: Point): Point[] => {
   const h = (p1.X + p2.X) / 2;
   const k = (p1.Y + p2.Y) / 2;
 
-  const step = 0.01;
+  const step = 1;
 
   for (let x = p1.X; x <= p2.X; x += step) {
     const y = k + (b / a) * Math.sqrt(a * a - (x - h) * (x - h));

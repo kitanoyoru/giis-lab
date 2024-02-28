@@ -4,15 +4,18 @@ import { Point } from "../../model/point";
 import { useState } from "react";
 import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { ToolType } from "../../model/tool";
+import { selectDebugMode } from "../../store/debugModeSlice";
 import {
   Circle,
   Ellipse,
   Hyperbola,
   Parabola,
 } from "../../helpers/secondOrderShape";
+import { sleep } from "../../utils/sleep";
 
 interface useSecondOrderShapeReturn {
   drawSecondOrderShape: (point: Point) => void;
+  clearSecondOrderShapeState: () => void;
 }
 
 export const useSecondOrderShape = (
@@ -21,9 +24,9 @@ export const useSecondOrderShape = (
   const [lastPoint, setLastPoint] = useState<Point>();
 
   const tool = useSelector(selectSelectedTool);
-  console.log(tool);
+  const debugMode = useSelector(selectDebugMode);
 
-  const drawSecondOrderShape = (point: Point) => {
+  const drawSecondOrderShape = async (point: Point) => {
     if (ctx) {
       if (lastPoint) {
         if (lastPoint.X != point.X && lastPoint.Y != point.Y) {
@@ -55,6 +58,9 @@ export const useSecondOrderShape = (
               context.drawPixel(p.X, p.Y);
               context.fillStyle = prevStyle;
             });
+            if (debugMode) {
+              await sleep(100);
+            }
           }
         }
       }
@@ -62,7 +68,12 @@ export const useSecondOrderShape = (
     setLastPoint(point);
   };
 
+  const clearSecondOrderShapeState = () => {
+    setLastPoint(undefined);
+  };
+
   return {
     drawSecondOrderShape,
+    clearSecondOrderShapeState,
   };
 };

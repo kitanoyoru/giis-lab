@@ -6,7 +6,9 @@ import { ToolType } from "../../model/tool";
 import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
 import { ColorPicker } from "../../components/ColorPicker";
-import { useLine, useSecondOrderShape } from "../../hooks/canvas";
+import { useClear, useLine, useSecondOrderShape } from "../../hooks/canvas";
+import { setDebugMode } from "../../store/debugModeSlice";
+import { useDispatch } from "../../hooks/redux";
 
 interface IProps {
   width: number;
@@ -16,12 +18,16 @@ interface IProps {
 export const Canvas: FC<IProps> = ({ width, height }) => {
   const [mouseDown, setMouseDown] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
   const selectedTool = useSelector(selectSelectedTool);
 
   const { canvasRef, draw } = useDrawler();
+  const { clear } = useClear();
 
-  const { drawLine } = useLine(draw!);
-  const { drawSecondOrderShape } = useSecondOrderShape(draw!);
+  const { drawLine, clearLineState } = useLine(draw!);
+  const { drawSecondOrderShape, clearSecondOrderShapeState } =
+    useSecondOrderShape(draw!);
 
   return (
     <div>
@@ -42,18 +48,9 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
               drawLine({ X: x, Y: y });
               break;
             }
-            case ToolType.CIRCLE: {
-              drawSecondOrderShape({ X: x, Y: y });
-              break;
-            }
-            case ToolType.ELLIPSE: {
-              drawSecondOrderShape({ X: x, Y: y });
-              break;
-            }
-            case ToolType.HYPERBOLA: {
-              drawSecondOrderShape({ X: x, Y: y });
-              break;
-            }
+            case ToolType.CIRCLE:
+            case ToolType.ELLIPSE:
+            case ToolType.HYPERBOLA:
             case ToolType.PARABOLA: {
               drawSecondOrderShape({ X: x, Y: y });
               break;
@@ -76,7 +73,29 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
         width={width}
         height={height}
       />
-      <ColorPicker draw={draw!} />
+      <div className="flex justify-between p-5">
+        <ColorPicker draw={draw!} />
+        <div className="flex gap-2">
+          <button
+            className="rounded border border-blue-700 bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+            onClick={() => {
+              clearLineState();
+              clearSecondOrderShapeState();
+              draw!(clear);
+            }}
+          >
+            Clear
+          </button>
+          <button
+            className="rounded border border-red-700 bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+            onClick={() => {
+              dispatch(setDebugMode({ debugMode: true }));
+            }}
+          >
+            DebugMode
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
