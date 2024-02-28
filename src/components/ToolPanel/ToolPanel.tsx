@@ -35,6 +35,18 @@ export const ToolPanel: FC<IProps> = ({
       <li className={buttonClassName} onClick={() => onClick(ToolType.ELLIPSE)}>
         Ellipse
       </li>
+      <li
+        className={buttonClassName}
+        onClick={() => onClick(ToolType.HYPERBOLA)}
+      >
+        Hyperbola
+      </li>
+      <li
+        className={buttonClassName}
+        onClick={() => onClick(ToolType.PARABOLA)}
+      >
+        Parabola
+      </li>
     </ul>
   );
 };

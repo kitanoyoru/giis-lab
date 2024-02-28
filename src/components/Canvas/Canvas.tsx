@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 import { useDrawler } from "../../hooks/canvas/useDrawler";
-import { useLine } from "../../hooks/canvas/useLine";
 import { useSelector } from "../../hooks/redux";
 import { ToolType } from "../../model/tool";
 import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
 import { ColorPicker } from "../../components/ColorPicker";
+import { useLine, useSecondOrderShape } from "../../hooks/canvas";
 
 interface IProps {
   width: number;
@@ -19,7 +19,9 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
   const selectedTool = useSelector(selectSelectedTool);
 
   const { canvasRef, draw } = useDrawler();
+
   const { drawLine } = useLine(draw!);
+  const { drawSecondOrderShape } = useSecondOrderShape(draw!);
 
   return (
     <div>
@@ -38,6 +40,22 @@ export const Canvas: FC<IProps> = ({ width, height }) => {
           switch (selectedTool) {
             case ToolType.LINE: {
               drawLine({ X: x, Y: y });
+              break;
+            }
+            case ToolType.CIRCLE: {
+              drawSecondOrderShape({ X: x, Y: y });
+              break;
+            }
+            case ToolType.ELLIPSE: {
+              drawSecondOrderShape({ X: x, Y: y });
+              break;
+            }
+            case ToolType.HYPERBOLA: {
+              drawSecondOrderShape({ X: x, Y: y });
+              break;
+            }
+            case ToolType.PARABOLA: {
+              drawSecondOrderShape({ X: x, Y: y });
               break;
             }
           }

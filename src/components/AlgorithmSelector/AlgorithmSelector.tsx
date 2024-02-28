@@ -1,8 +1,6 @@
-import { useDispatch, useSelector } from "../../hooks/redux";
-import { ToolType } from "../../model/tool";
+import { useDispatch } from "../../hooks/redux";
 import { AlgorithmType } from "../../model/algorithm";
 import { setSelectedAlgorithm } from "../../store/selectedAlgorithmSlice";
-import { selectSelectedTool } from "../../store/selectedToolSlice";
 import { FC } from "react";
 
 /*
@@ -25,12 +23,6 @@ export const AlgorithmSelector: FC<IProps> = ({
   const onClick = (newAlgorithm: AlgorithmType) => {
     dispatch(setSelectedAlgorithm({ algorithm: newAlgorithm }));
   };
-
-  const selectedTool = useSelector(selectSelectedTool);
-
-  if (selectedTool != ToolType.LINE) {
-    return;
-  }
 
   return (
     <ul className={containerClassName}>
